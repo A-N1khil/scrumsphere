@@ -8,6 +8,17 @@
     "baseUrl": ".",
     "paths": {
       "@app/*": ["./src/app/*"]
-    }
-  }
+    },
+    "target": "ES5",
+    "module": "ESNext",
+    "jsx": "react-jsx",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "Node",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
+    "skipLibCheck": true
+  },
+  "include": ["src/**/*", "jest.config.cjs", "src/**/*.test.ts", "src/**/*.test.tsx"]
 }
