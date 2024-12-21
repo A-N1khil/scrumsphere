@@ -1,6 +1,7 @@
 import { KanbanSquare } from "lucide-react";
 import { RegistrationForm } from "../components/RegistrationForm";
 import RegistrationImage from "../../assets/kier-in-sight-archives-p7iaoHjWDbI-unsplash.jpg";
+import { Constants } from "../shared/Constants";
 
 export default function RegistrationPage() {
   return (
@@ -11,7 +12,7 @@ export default function RegistrationPage() {
             <div className="flex h-6 w-6 items-center justify-center rounded-md bg-primary text-primary-foreground">
               <KanbanSquare className="size-4" />
             </div>
-            Scrumsphere
+            {Constants.APP_NAME}
           </a>
         </div>
         <div className="flex flex-1 items-center justify-center">

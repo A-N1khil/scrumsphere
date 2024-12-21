@@ -22,6 +22,7 @@ import {
   SelectContent,
   SelectItem,
 } from "@/app/components/ui/select";
+import { Link } from "react-router-dom";
 
 // Login Schema
 const registrationSchema = z
@@ -62,9 +63,9 @@ export function RegistrationForm({
           <h1 className="text-2xl font-bold">Register</h1>
           <small className="text-sm text-muted-foreground">
             Already have an account?{" "}
-            <a href="#" className="underline underline-offset-4">
-              Login
-            </a>
+            <Link to="/login">
+              <a className="underline underline-offset-4">Sign in</a>
+            </Link>
           </small>
         </div>
         <Form {...registrationForm}>
