@@ -36,12 +36,10 @@ export function LoginForm({
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <div className="flex flex-col gap-6">
         <div className="flex flex-col items-center gap-2">
-          <a href="#" className="flex flex-col items-center gap-2 font-medium">
-            <div className="flex h-8 w-8 items-center justify-center rounded-md">
-              <SquareKanban className="size-6" />
-            </div>
-            <span className="sr-only">{Constants.APP_NAME}</span>
-          </a>
+          <div className="flex h-8 w-8 items-center justify-center rounded-md font-medium">
+            <SquareKanban className="size-6" />
+          </div>
+          <span className="sr-only">{Constants.APP_NAME}</span>
           <h1 className="text-xl font-bold">Welcome to {Constants.APP_NAME}</h1>
           <div className="text-center text-sm">
             Don&apos;t have an account?{" "}
