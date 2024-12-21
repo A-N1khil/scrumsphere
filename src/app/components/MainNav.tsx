@@ -1,11 +1,13 @@
-"use client";
-
 import { cn } from "@/app/lib/utils";
 import { SquareKanban } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Constants } from "../shared/Constants";
+import { useAppSelector } from "../hooks/Hooks";
 
 export function MainNav() {
+  const { user } = useAppSelector((state) => state.user);
+  const role = user?.role || "developer";
+
   return (
     <div className="mr-4 hidden md:flex">
       <Link to="/" className="mr-4 flex items-center gap-2 lg:mr-6">
@@ -19,37 +21,33 @@ export function MainNav() {
           to="/docs"
           className={cn("transition-colors hover:text-foreground/80")}
         >
-          Docs
+          Tasks
         </Link>
         <Link
           to="/docs/components"
           className={cn("transition-colors hover:text-foreground/80")}
         >
-          Components
+          Kanban
         </Link>
         <Link
           to="/blocks"
           className={cn("transition-colors hover:text-foreground/80")}
         >
-          Blocks
+          Stats
         </Link>
         <Link
+          hidden={role !== "admin" && role !== "projectManager"}
           to="/charts"
           className={cn("transition-colors hover:text-foreground/80")}
         >
-          Charts
+          Developers
         </Link>
         <Link
+          hidden={role !== "admin"}
           to="/themes"
           className={cn("transition-colors hover:text-foreground/80")}
         >
-          Themes
-        </Link>
-        <Link
-          to="/colors"
-          className={cn("transition-colors hover:text-foreground/80")}
-        >
-          Colors
+          Team
         </Link>
       </nav>
     </div>
