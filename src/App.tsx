@@ -5,18 +5,21 @@ import RegistrationPage from "./app/Pages/RegistrationPage";
 import UserLanding from "./app/Pages/UserLanding";
 import { Provider } from "react-redux";
 import { store } from "./app/store";
+import { ThemeProvider } from "./app/components/ThemeProvider";
 
 function App() {
   return (
     <>
       <Provider store={store}>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegistrationPage />} />
-            <Route path="/landing" element={<UserLanding />} />
-          </Routes>
-        </BrowserRouter>
+        <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
+          <BrowserRouter>
+            <Routes>
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/register" element={<RegistrationPage />} />
+              <Route path="/tasks" element={<UserLanding />} />
+            </Routes>
+          </BrowserRouter>
+        </ThemeProvider>
       </Provider>
     </>
   );
