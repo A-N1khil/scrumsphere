@@ -18,7 +18,8 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "strict": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "types": ["node", "jest", "cypress"],
   },
-  "include": ["src/**/*", "jest.config.cjs", "src/**/*.test.ts", "src/**/*.test.tsx"]
+  "include": ["src/**/*", "jest.config.cjs", "src/**/*.test.ts", "src/**/*.test.tsx"],
 }
