@@ -10,7 +10,9 @@ const UserLanding: React.FC = () => {
     <AppLayout>
       <div className="space-y-6 mt-4">
         <div className="mt-2 p-4 flex flex-col items-start justify-between">
-          <h1 className="text-3xl font-bold">Welcome {user?.name}</h1>
+          <h1 data-testid="user-welcome-text" className="text-3xl font-bold">
+            Welcome {user?.name}
+          </h1>
           <p>This is the main content area of the User Landing page.</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
