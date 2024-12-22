@@ -6,27 +6,15 @@ import { Label } from "@/app/components/ui/label";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "./ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form";
 import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-} from "@/app/components/ui/select";
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/app/components/ui/select";
 import { Link } from "react-router-dom";
 
 // Login Schema
 const registrationSchema = z
   .object({
+    userId: z.string().min(8),
     name: z.string(),
     email: z.string().email(),
     password: z.string().min(8),
@@ -43,10 +31,7 @@ const registrationSchema = z
     path: ["confirmPassword"],
   });
 
-export function RegistrationForm({
-  className,
-  ...props
-}: React.ComponentPropsWithoutRef<"div">) {
+export function RegistrationForm({ className, ...props }: React.ComponentPropsWithoutRef<"div">) {
   // Define the login form
   const registrationForm = useForm<z.infer<typeof registrationSchema>>({
     resolver: zodResolver(registrationSchema),
@@ -71,6 +56,25 @@ export function RegistrationForm({
         <Form {...registrationForm}>
           <form onSubmit={registrationForm.handleSubmit(handleLoginSubmit)}>
             <div className="flex flex-col gap-6">
+              {/* Username */}
+              <div className="grid gap-2">
+                <FormField
+                  control={registrationForm.control}
+                  name="userId"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="flex items-start">UserID</FormLabel>
+                      <FormControl>
+                        <Input id="userId" type="text" placeholder="A unique handle for you.." required {...field} />
+                      </FormControl>
+                      <small className="flex items-start text-sm text-muted-foreground">
+                        <FormMessage className="mt-1" />
+                      </small>
+                    </FormItem>
+                  )}
+                ></FormField>
+              </div>
+
               {/* Name */}
               <div className="grid gap-2">
                 <div className="flex items-center">
@@ -83,12 +87,7 @@ export function RegistrationForm({
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
-                        <Input
-                          id="name"
-                          placeholder="First and Last"
-                          required
-                          {...field}
-                        />
+                        <Input id="name" placeholder="First and Last" required {...field} />
                       </FormControl>
                       <small className="flex items-start text-sm text-muted-foreground">
                         <FormMessage className="mt-1" />
@@ -109,13 +108,7 @@ export function RegistrationForm({
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
-                        <Input
-                          id="email"
-                          type="email"
-                          placeholder="m@example.com"
-                          required
-                          {...field}
-                        />
+                        <Input id="email" type="email" placeholder="m@example.com" required {...field} />
                       </FormControl>
                       <small className="flex items-start text-sm text-muted-foreground">
                         <FormMessage className="mt-1" />
@@ -136,12 +129,7 @@ export function RegistrationForm({
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
-                        <Input
-                          id="password"
-                          type="password"
-                          required
-                          {...field}
-                        />
+                        <Input id="password" type="password" required {...field} />
                       </FormControl>
                       <small className="flex items-start text-sm text-muted-foreground">
                         <FormMessage className="mt-1" />
@@ -162,12 +150,7 @@ export function RegistrationForm({
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
-                        <Input
-                          id="confirmPpassword"
-                          type="password"
-                          required
-                          {...field}
-                        />
+                        <Input id="confirmPpassword" type="password" required {...field} />
                       </FormControl>
                       <small className="flex items-start text-sm text-muted-foreground">
                         <FormMessage className="mt-1" />
@@ -185,7 +168,7 @@ export function RegistrationForm({
                 <FormField
                   control={registrationForm.control}
                   name="gender"
-                  render={({ field }) => (
+                  render={() => (
                     <FormItem className="space-y-3">
                       <FormControl>
                         <RadioGroup className="flex space-x-4">
@@ -199,9 +182,7 @@ export function RegistrationForm({
                             <FormControl>
                               <RadioGroupItem value="female" />
                             </FormControl>
-                            <FormLabel className="font-normal">
-                              Female
-                            </FormLabel>
+                            <FormLabel className="font-normal">Female</FormLabel>
                           </FormItem>
                           <FormItem className="flex items-center space-x-3 space-y-0">
                             <FormControl>
@@ -225,7 +206,7 @@ export function RegistrationForm({
                   <FormField
                     control={registrationForm.control}
                     name="role"
-                    render={({ field }) => (
+                    render={() => (
                       <FormItem>
                         <Select>
                           <FormControl>
@@ -234,12 +215,8 @@ export function RegistrationForm({
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            <SelectItem value="stakeholder">
-                              Stakeholder
-                            </SelectItem>
-                            <SelectItem value="productManager">
-                              Product Manager
-                            </SelectItem>
+                            <SelectItem value="stakeholder">Stakeholder</SelectItem>
+                            <SelectItem value="productManager">Product Manager</SelectItem>
                             <SelectItem value="developer">Developer</SelectItem>
                           </SelectContent>
                         </Select>
@@ -257,8 +234,7 @@ export function RegistrationForm({
         </Form>
       </div>
       <div className="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 hover:[&_a]:text-primary  ">
-        By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
-        and <a href="#">Privacy Policy</a>.
+        By clicking continue, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
       </div>
     </div>
   );
