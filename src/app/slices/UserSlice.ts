@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { User } from '../shared/User';
+import { User } from '../shared/models/User';
 
 const demoUser: User = {
     name: 'Nikhil',
