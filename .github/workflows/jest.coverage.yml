@@ -26,12 +26,3 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           slug: A-N1khil/scrumsphere
-
-codecov:
-  comment:
-    layout: "diff, flags, files"
-    behavior: default
-    require_changes: false
-    require_base: false
-    require_head: true
-    hide_project_coverage: false
