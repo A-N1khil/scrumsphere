@@ -64,4 +64,4 @@ testem.log
 Thumbs.db
 
 # Envirnoment
-**/*.env.dev
+**/*.env.development

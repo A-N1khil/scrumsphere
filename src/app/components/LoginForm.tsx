@@ -12,24 +12,26 @@ import { Form, FormControl, FormField, FormItem, FormMessage } from "./ui/form";
 
 import { Constants } from "@/app/shared/Constants";
 import { Link } from "react-router-dom";
+import { setUser } from "../slices/UserSlice";
+import { User } from "../models/users/User";
+import { userService } from "../services/users/userService";
 
 // Login Schema
 const loginSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(8),
+  userId: z.string(),
+  password: z.string(),
 });
 
-export function LoginForm({
-  className,
-  ...props
-}: React.ComponentPropsWithoutRef<"div">) {
+export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRef<"div">) {
   // Define the login form
   const loginForm = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
   });
 
   function handleLoginSubmit(values: z.infer<typeof loginSchema>) {
-    console.log(values);
+    userService.login(values.userId, values.password).then((user: User) => {
+      setUser(user);
+    });
   }
 
   return (
@@ -55,22 +57,16 @@ export function LoginForm({
             <div className="flex flex-col gap-6">
               <div className="grid gap-2">
                 <div className="flex items-center">
-                  <Label htmlFor="email">Email</Label>
+                  <Label htmlFor="userId">User ID</Label>
                 </div>
                 {/* Email */}
                 <FormField
                   control={loginForm.control}
-                  name="email"
+                  name="userId"
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
-                        <Input
-                          id="email"
-                          type="email"
-                          placeholder="m@example.com"
-                          required
-                          {...field}
-                        />
+                        <Input id="userId" placeholder="amazing_dev" required {...field} />
                       </FormControl>
                       <small className="flex items-start text-sm text-muted-foreground">
                         <FormMessage className="mt-1" />
@@ -82,10 +78,7 @@ export function LoginForm({
               <div className="grid gap-2">
                 <div className="flex items-center">
                   <Label htmlFor="password">Password</Label>
-                  <a
-                    href="#"
-                    className="ml-auto text-sm underline-offset-4 hover:underline"
-                  >
+                  <a href="#" className="ml-auto text-sm underline-offset-4 hover:underline">
                     Forgot your password?
                   </a>
                 </div>
@@ -95,12 +88,7 @@ export function LoginForm({
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
-                        <Input
-                          id="password"
-                          type="password"
-                          required
-                          {...field}
-                        />
+                        <Input id="password" type="password" required {...field} />
                       </FormControl>
                       <small className="flex items-start text-sm text-muted-foreground">
                         <FormMessage className="mt-1" />
@@ -117,8 +105,7 @@ export function LoginForm({
         </Form>
       </div>
       <div className="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 hover:[&_a]:text-primary  ">
-        By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
-        and <a href="#">Privacy Policy</a>.
+        By clicking continue, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
       </div>
     </div>
   );
