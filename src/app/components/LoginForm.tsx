@@ -69,7 +69,7 @@ export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRe
                         <Input id="userId" placeholder="amazing_dev" required {...field} />
                       </FormControl>
                       <small className="flex items-start text-sm text-muted-foreground">
-                        <FormMessage className="mt-1" />
+                        <FormMessage />
                       </small>
                     </FormItem>
                   )}

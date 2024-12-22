@@ -10,28 +10,34 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/app/components/ui/select";
 import { Link } from "react-router-dom";
-
-// Login Schema
-const registrationSchema = z
-  .object({
-    userId: z.string().min(8),
-    name: z.string(),
-    email: z.string().email(),
-    password: z.string().min(8),
-    confirmPassword: z.string(),
-    gender: z.enum(["male", "female", "other"], {
-      required_error: "You need to select one gender",
-    }),
-    role: z.enum(["stakeholder", "productManager", "developer"], {
-      required_error: "You need to select a role",
-    }),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords do not match",
-    path: ["confirmPassword"],
-  });
+import { userService } from "../services/users/userService";
+import * as ld from "lodash";
 
 export function RegistrationForm({ className, ...props }: React.ComponentPropsWithoutRef<"div">) {
+  // Login Schema
+  const registrationSchema = z
+    .object({
+      userId: z.string().min(8),
+      name: z.string(),
+      email: z.string().email(),
+      password: z.string().min(8),
+      confirmPassword: z.string(),
+      gender: z
+        .enum(["male", "female", "other"], {
+          required_error: "You need to select one gender",
+        })
+        .optional(),
+      role: z
+        .enum(["stakeholder", "productManager", "developer"], {
+          required_error: "You need to select a role",
+        })
+        .optional(),
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+      message: "Passwords do not match",
+      path: ["confirmPassword"],
+    });
+
   // Define the login form
   const registrationForm = useForm<z.infer<typeof registrationSchema>>({
     resolver: zodResolver(registrationSchema),
@@ -41,8 +47,24 @@ export function RegistrationForm({ className, ...props }: React.ComponentPropsWi
     console.log(values);
   }
 
+  const checkIfUserIdIsAvailable = ld.debounce(async (value: string) => {
+    // only check if the value is more than 3 characters
+    if (value.length > 3) {
+      userService.isUserNameAvaiable(value).then((isAvailable) => {
+        if (!isAvailable) {
+          registrationForm.setError("userId", {
+            type: "manual",
+            message: "Username is already taken",
+          });
+        } else {
+          registrationForm.clearErrors("userId");
+        }
+      });
+    }
+  }, 300);
+
   return (
-    <div className={cn("flex flex-col gap-6", className)} {...props}>
+    <div className={cn("flex flex-col gap-6 mt-5", className)} {...props}>
       <div className="flex flex-col gap-6">
         <div className="flex flex-col items-start gap-2">
           <h1 className="text-2xl font-bold">Register</h1>
@@ -65,7 +87,17 @@ export function RegistrationForm({ className, ...props }: React.ComponentPropsWi
                     <FormItem>
                       <FormLabel className="flex items-start">UserID</FormLabel>
                       <FormControl>
-                        <Input id="userId" type="text" placeholder="A unique handle for you.." required {...field} />
+                        <Input
+                          id="userId"
+                          type="text"
+                          placeholder="A unique handle for you.."
+                          required
+                          {...field}
+                          onChange={(e) => {
+                            field.onChange(e);
+                            checkIfUserIdIsAvailable(e.target.value);
+                          }}
+                        />
                       </FormControl>
                       <small className="flex items-start text-sm text-muted-foreground">
                         <FormMessage className="mt-1" />
@@ -131,8 +163,8 @@ export function RegistrationForm({ className, ...props }: React.ComponentPropsWi
                       <FormControl>
                         <Input id="password" type="password" required {...field} />
                       </FormControl>
-                      <small className="flex items-start text-sm text-muted-foreground">
-                        <FormMessage className="mt-1" />
+                      <small className="flex items-start text-sm text-foreground">
+                        <FormMessage />
                       </small>
                     </FormItem>
                   )}
