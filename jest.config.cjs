@@ -8,5 +8,9 @@ module.exports = {
     'src/**/*.{ts,tsx}',
     '!src/**/*.d.ts'
   ],
+  setupFilesAfterEnv: ['./src/setupTests.ts'],
   coverageDirectory: 'coverage',
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/src/$1'
+  },
 };
