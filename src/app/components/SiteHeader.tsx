@@ -1,5 +1,6 @@
 import CommandMenu from "./CommandMenu";
 import { MainNav } from "./MainNav";
+import { ModeToggle } from "./ModeToggle";
 
 export function SiteHeader() {
   return (
@@ -11,6 +12,9 @@ export function SiteHeader() {
             <div className="w-full flex-1 md:w-auto md:flex-none">
               <CommandMenu />
             </div>
+            <nav className="flex items-center gap-0.5">
+              <ModeToggle />
+            </nav>
           </div>
         </div>
       </div>
