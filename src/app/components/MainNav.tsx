@@ -8,10 +8,9 @@ export function MainNav() {
   const { user } = useAppSelector((state) => state.user);
   const role = user?.role || "developer";
   const navLinks = [
-    { name: "Home", path: "/landing" },
-    { name: "About", path: "/about" },
-    { name: "Services", path: "/services" },
-    { name: "Contact", path: "/contact" },
+    { name: "Tasks", path: "/tasks", hideForRoles: [] },
+    { name: "Projects", path: "/projects", hideForRoles: [] },
+    { name: "Team", path: "/team", hideForRoles: ["developer"] },
   ];
 
   return (
@@ -24,22 +23,24 @@ export function MainNav() {
       </Link>
       <nav className="flex items-center gap-4 text-sm xl:gap-6">
         <div className="flex gap-6">
-          {navLinks.map((link) => (
-            <NavLink
-              key={link.path}
-              to={link.path}
-              className={({ isActive }) =>
-                cn(
-                  "text-sm font-medium transition-colors",
-                  isActive
-                    ? "text-foreground border-b-2 border-primary" // Active link styling
-                    : "text-foreground/70 hover:border-b-2 hover:border-foreground hover:border-dashed"
-                )
-              }
-            >
-              {link.name}
-            </NavLink>
-          ))}
+          {navLinks.map((link) =>
+            link.hideForRoles.includes(role) ? null : (
+              <NavLink
+                key={link.path}
+                to={link.path}
+                className={({ isActive }) =>
+                  cn(
+                    "text-sm font-medium transition-colors",
+                    isActive
+                      ? "text-foreground border-b-2 border-primary" // Active link styling
+                      : "text-foreground/70 hover:border-b-2 hover:border-foreground hover:border-dashed"
+                  )
+                }
+              >
+                {link.name}
+              </NavLink>
+            )
+          )}
         </div>
       </nav>
     </div>
