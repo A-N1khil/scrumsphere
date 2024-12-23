@@ -1,5 +1,5 @@
 import { User } from "@/app/models/users/User";
-import { httpService } from "../http/httpService";
+import { httpService } from "../http/HttpService";
 
 class UserService {
   async login(userId: string, password: string): Promise<User> {

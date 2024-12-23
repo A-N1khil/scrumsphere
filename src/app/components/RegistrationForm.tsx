@@ -9,8 +9,8 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/app/components/ui/select";
 import { Link, useNavigate } from "react-router-dom";
-import { userService } from "../services/users/userService";
-import * as ld from "lodash";
+import { userService } from "../services/users/UserService";
+import ld from "lodash";
 import { setUser } from "../slices/UserSlice";
 import { User } from "../models/users/User";
 

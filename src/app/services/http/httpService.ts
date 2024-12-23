@@ -1,5 +1,5 @@
 import { ResponseHolder } from "@/app/models/shared/ResponseHolder";
-import apiClient from "../apiClient";
+import apiClient from "../ApiClient";
 import { CustomAuthConfig } from "@/app/models/shared/Auth";
 
 class HttpService {
