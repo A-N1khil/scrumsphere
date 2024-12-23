@@ -12,6 +12,8 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@
 import { Link } from "react-router-dom";
 import { userService } from "../services/users/userService";
 import * as ld from "lodash";
+import { setUser } from "../slices/UserSlice";
+import { User } from "../models/users/User";
 
 export function RegistrationForm({ className, ...props }: React.ComponentPropsWithoutRef<"div">) {
   // Login Schema
@@ -22,16 +24,12 @@ export function RegistrationForm({ className, ...props }: React.ComponentPropsWi
       email: z.string().email(),
       password: z.string().min(8),
       confirmPassword: z.string(),
-      gender: z
-        .enum(["male", "female", "other"], {
-          required_error: "You need to select one gender",
-        })
-        .optional(),
-      role: z
-        .enum(["stakeholder", "productManager", "developer"], {
-          required_error: "You need to select a role",
-        })
-        .optional(),
+      gender: z.enum(["male", "female", "other"], {
+        required_error: "You need to select one gender",
+      }),
+      role: z.enum(["stakeholder", "productManager", "developer"], {
+        required_error: "You need to select a role",
+      }),
     })
     .refine((data) => data.password === data.confirmPassword, {
       message: "Passwords do not match",
@@ -45,6 +43,16 @@ export function RegistrationForm({ className, ...props }: React.ComponentPropsWi
 
   function handleLoginSubmit(values: z.infer<typeof registrationSchema>) {
     console.log(values);
+    const user: User = {
+      userId: values.userId,
+      name: values.name,
+      email: values.email,
+      role: values.role,
+      password: values.password,
+    };
+    userService.register(user).then((user: User) => {
+      setUser(user);
+    });
   }
 
   const checkIfUserIdIsAvailable = ld.debounce(async (value: string) => {
@@ -119,7 +127,7 @@ export function RegistrationForm({ className, ...props }: React.ComponentPropsWi
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
-                        <Input id="name" placeholder="First and Last" required {...field} />
+                        <Input id="name" placeholder="First" required {...field} />
                       </FormControl>
                       <small className="flex items-start text-sm text-muted-foreground">
                         <FormMessage className="mt-1" />
@@ -200,10 +208,14 @@ export function RegistrationForm({ className, ...props }: React.ComponentPropsWi
                 <FormField
                   control={registrationForm.control}
                   name="gender"
-                  render={() => (
+                  render={({ field }) => (
                     <FormItem className="space-y-3">
                       <FormControl>
-                        <RadioGroup className="flex space-x-4">
+                        <RadioGroup
+                          className="flex space-x-4"
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                        >
                           <FormItem className="flex items-center space-x-3 space-y-0">
                             <FormControl>
                               <RadioGroupItem value="male" />
@@ -238,9 +250,9 @@ export function RegistrationForm({ className, ...props }: React.ComponentPropsWi
                   <FormField
                     control={registrationForm.control}
                     name="role"
-                    render={() => (
+                    render={({ field }) => (
                       <FormItem>
-                        <Select>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
                           <FormControl>
                             <SelectTrigger>
                               <SelectValue placeholder="Select your role" />
