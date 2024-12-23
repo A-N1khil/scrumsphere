@@ -2,14 +2,13 @@ import { cn } from "@/app/lib/utils";
 import { Button } from "@/app/components/ui/button";
 import { Input } from "@/app/components/ui/input";
 import { Label } from "@/app/components/ui/label";
-
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form";
 import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/app/components/ui/select";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { userService } from "../services/users/userService";
 import * as ld from "lodash";
 import { setUser } from "../slices/UserSlice";
@@ -41,6 +40,8 @@ export function RegistrationForm({ className, ...props }: React.ComponentPropsWi
     resolver: zodResolver(registrationSchema),
   });
 
+  const navigate = useNavigate();
+
   function handleLoginSubmit(values: z.infer<typeof registrationSchema>) {
     console.log(values);
     const user: User = {
@@ -52,6 +53,7 @@ export function RegistrationForm({ className, ...props }: React.ComponentPropsWi
     };
     userService.register(user).then((user: User) => {
       setUser(user);
+      navigate("/tasks");
     });
   }
 
