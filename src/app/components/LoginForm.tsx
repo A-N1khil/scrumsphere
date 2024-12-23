@@ -13,7 +13,7 @@ import { Form, FormControl, FormField, FormItem, FormMessage } from "./ui/form";
 import { Constants } from "@/app/shared/Constants";
 import { Link, useNavigate } from "react-router-dom";
 import { User } from "../models/users/User";
-import { userService } from "../services/users/UserService";
+import { userService } from "@/app/services/users/UserService";
 import { useDispatch } from "react-redux";
 import { setUser } from "../slices/UserSlice";
 
