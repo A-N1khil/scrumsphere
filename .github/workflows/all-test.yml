@@ -27,6 +27,7 @@ jobs:
       - name: Run Cypress tests
         uses: cypress-io/github-action@v6
         with:
+          start: npm start
           browser: chrome
           command: npm run cypress:e2e
           wait-on: "http://localhost:5173"
