@@ -4,11 +4,15 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "start": "vite --mode development",
     "dev": "vite --mode development",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "jest"
+    "test": "jest",
+    "cypress:e2e": "cypress run",
+    "coverage:report": "nyc report --reporter=text-summary",
+    "report:combined": "npx nyc report --reporter lcov --reporter text --report-dir coverage"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
@@ -46,6 +50,7 @@
     "@cypress/code-coverage": "^3.13.9",
     "@cypress/react18": "^2.0.1",
     "@eslint/js": "^9.17.0",
+    "@istanbuljs/nyc-config-typescript": "^1.0.2",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.1.0",
     "@types/cypress": "^0.1.6",
@@ -63,21 +68,26 @@
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.16",
     "globals": "^15.13.0",
+    "istanbul-lib-coverage": "^3.2.2",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
+    "nyc": "^17.1.0",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.17",
     "ts-jest": "^29.2.5",
     "typescript": "~5.6.2",
     "typescript-eslint": "^8.18.1",
     "vite": "^6.0.5",
-    "vite-plugin-eslint": "^1.8.1"
+    "vite-plugin-eslint": "^1.8.1",
+    "vite-plugin-istanbul": "^6.0.2"
   },
   "overrides": {
     "uri-js": "npm:uri-js-replace",
     "tough-cookie": "^5.0.0-rc.4"
   },
   "nyc": {
-    "report-dir": "coverage"
+    "report-dir": "code-coverage/cypress-coverage",
+    "extends": "@istanbuljs/nyc-config-typescript",
+    "all": true
   }
 }

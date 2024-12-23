@@ -62,7 +62,9 @@ export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRe
             <div className="flex flex-col gap-6">
               <div className="grid gap-2">
                 <div className="flex items-center">
-                  <Label htmlFor="userId">User ID</Label>
+                  <Label id="userId-label" htmlFor="userId">
+                    User ID
+                  </Label>
                 </div>
                 {/* Email */}
                 <FormField
