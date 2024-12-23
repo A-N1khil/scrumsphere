@@ -12,9 +12,10 @@ import { Form, FormControl, FormField, FormItem, FormMessage } from "./ui/form";
 
 import { Constants } from "@/app/shared/Constants";
 import { Link, useNavigate } from "react-router-dom";
-import { setUser } from "../slices/UserSlice";
 import { User } from "../models/users/User";
 import { userService } from "../services/users/userService";
+import { useDispatch } from "react-redux";
+import { setUser } from "../slices/UserSlice";
 
 // Login Schema
 const loginSchema = z.object({
@@ -28,11 +29,12 @@ export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRe
     resolver: zodResolver(loginSchema),
   });
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   function handleLoginSubmit(values: z.infer<typeof loginSchema>) {
     userService.login(values.userId, values.password).then((user: User) => {
-      setUser(user);
+      dispatch(setUser(user));
       navigate("/tasks");
     });
   }
