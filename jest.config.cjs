@@ -9,7 +9,7 @@ module.exports = {
     '!src/**/*.d.ts'
   ],
   setupFilesAfterEnv: ['./src/setupTests.ts'],
-  coverageDirectory: 'coverage',
+  coverageDirectory: 'code-coverage/jest-coverage',
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1'
   },

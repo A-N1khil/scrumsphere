@@ -1,0 +1,45 @@
+name: Cypress E2E Tests
+
+on:
+  pull_request:
+    branches: ["develop"]
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [22.x]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+
+      - name: Install dependencies
+        run: npm ci --force
+
+      - name: Build the app
+        run: npm run build
+
+      - name: Run tests
+        run: npx jest --coverage
+
+      - name: Run Cypress tests
+        uses: cypress-io/github-action@v6
+        with:
+          install: false
+          start: npm start
+          browser: chrome
+          command: npm run cypress:e2e
+          wait-on: "http://localhost:5173"
+
+      - name: Combine coverage reports
+        run: npm run report:combined
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: A-N1khil/scrumsphere

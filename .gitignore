@@ -65,3 +65,6 @@ Thumbs.db
 
 # Envirnoment
 **/*.env.development
+
+# Custom code coverage
+**/code-coverage/*
