@@ -1,9 +1,10 @@
 import React from "react";
 import AppLayout from "../components/Layout";
 import { useAppSelector } from "../hooks/Hooks";
+import { UserState } from "../slices/UserSlice";
 
 const UserLanding: React.FC = () => {
-  const { user } = useAppSelector((state) => state.user);
+  const user = useAppSelector((state: { user: UserState }) => state.user.user);
   console.log(user);
 
   return (

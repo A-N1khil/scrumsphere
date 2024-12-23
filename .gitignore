@@ -62,3 +62,6 @@ testem.log
 
 # System files
 Thumbs.db
+
+# Envirnoment
+**/*.env.development
