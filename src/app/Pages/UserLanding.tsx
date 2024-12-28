@@ -2,10 +2,10 @@ import React from "react";
 import AppLayout from "../components/Layout";
 import { useAppSelector } from "../hooks/Hooks";
 import { UserState } from "../slices/UserSlice";
+import TaskComponent from "../components/TaskComponent";
 
 const UserLanding: React.FC = () => {
   const user = useAppSelector((state: { user: UserState }) => state.user.user);
-  console.log(user);
 
   return (
     <AppLayout>
@@ -16,23 +16,9 @@ const UserLanding: React.FC = () => {
           </h1>
           <p>This is the main content area of the User Landing page.</p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div className="p-4 bg-card rounded-lg shadow">
-            <h2 className="text-xl font-semibold mb-2">Recent Activity</h2>
-            <p>Your recent activities will appear here.</p>
-          </div>
-          <div className="p-4 bg-card rounded-lg shadow">
-            <h2 className="text-xl font-semibold mb-2">Notifications</h2>
-            <p>You have 3 new notifications.</p>
-          </div>
-          <div className="p-4 bg-card rounded-lg shadow">
-            <h2 className="text-xl font-semibold mb-2">Quick Actions</h2>
-            <ul className="list-disc list-inside">
-              <li>Create new project</li>
-              <li>Invite team member</li>
-              <li>Generate report</li>
-            </ul>
-          </div>
+        <div className="flex flex-col">
+          <h2 className="text-xl font-semibold mb-2">Recent Activity</h2>
+          <TaskComponent />
         </div>
       </div>
     </AppLayout>
