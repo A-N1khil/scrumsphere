@@ -1,7 +1,6 @@
 import { columns } from "./tasks/Columns";
 import TaskTable from "./tasks/TaskTable";
 import { Task } from "../models/tasks/Task";
-
 const data: Task[] = [
   {
     id: "676eeddaf5264633ed8421ba",
@@ -147,9 +146,11 @@ const data: Task[] = [
 
 const TaskComponent = () => {
   return (
-    <div className="container mx-auto py-10">
-      <TaskTable columns={columns} data={data} />
-    </div>
+    <>
+      <div className="container mx-auto py-10">
+        <TaskTable columns={columns} data={data} />
+      </div>
+    </>
   );
 };
 
