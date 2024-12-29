@@ -1,19 +1,18 @@
 import { Task } from "@/app/models/tasks/Task";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../ui/card";
 import { Button } from "../ui/button";
-import { CalendarArrowUp, CalendarPlus, CircleUser, UserPen } from "lucide-react";
+import { CalendarArrowUp, CalendarPlus, CircleUser, MessagesSquare, ThumbsUp, User2Icon, UserPen } from "lucide-react";
 import { Separator } from "../ui/separator";
 import MarkdownEditor from "../MarkdownEditor";
-import { useEffect, useState } from "react";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbSeparator } from "../ui/breadcrumb";
+import { Message } from "@/app/models/tasks/Message";
+import MarkdownMessage from "../MarkdownMessage";
 
 interface TaskViewProps {
   task: Task;
 }
 
 const TaskView = ({ task }: TaskViewProps) => {
-  const [message, setMessage] = useState("");
-
   const getNewMessage = (content: string | undefined) => {
     console.log(content);
   };
@@ -87,7 +86,37 @@ const TaskView = ({ task }: TaskViewProps) => {
             </div>
           </div>
         </CardContent>
-        <CardFooter className="flex items-end justify-end"></CardFooter>
+        <CardFooter className="flex flex-col justify-start items-start">
+          <h1 className="text-md flex flex-row">
+            <MessagesSquare className="mr-2" />
+            Discussion Thread
+          </h1>
+          <div className="grid grid-cols-5">
+            <div className="col-span-4">
+              {task.messages?.map((message: Message) => (
+                <Card className="mt-5 w-[500px]" key={message.id}>
+                  <CardHeader>
+                    <CardTitle className="flex flex-row justify-start items-center">
+                      <User2Icon className="mr-1" />
+                      {message.author} posted
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="text-left">
+                    <CardDescription>
+                      <MarkdownMessage message={message.content} />
+                    </CardDescription>
+                  </CardContent>
+                  <CardFooter className="flex flex-row justify-end items-end">
+                    <Button size="sm" type="button" variant="default" className="float-right mr-3">
+                      <ThumbsUp /> {message.upVotes}
+                    </Button>
+                  </CardFooter>
+                </Card>
+              ))}
+            </div>
+            <div className="col-span-1"></div>
+          </div>
+        </CardFooter>
       </Card>
     </>
   );

@@ -6,7 +6,6 @@ import UserLanding from "./app/Pages/UserLanding";
 import { Provider } from "react-redux";
 import { store } from "./app/store";
 import { ThemeProvider } from "./app/components/ThemeProvider";
-import TaskComponent from "./app/components/TaskComponent";
 import TaskView from "./app/components/tasks/TaskView";
 import { Task } from "./app/models/tasks/Task";
 
@@ -22,7 +21,20 @@ const task: Task = {
   dueDate: "2024-01-15",
   createdDate: "2023-12-20",
   updatedDate: "2023-12-25",
-  messages: [],
+  messages: [
+    {
+      id: "676eeddaf5264633ed8421ba",
+      content: "This is the first message.",
+      author: "Alice",
+      upVotes: 3,
+    },
+    {
+      id: "676eeddaf5264633ed8421bb",
+      content: `# Hello`,
+      author: "Bob",
+      upVotes: 0,
+    },
+  ],
 };
 
 function App() {
