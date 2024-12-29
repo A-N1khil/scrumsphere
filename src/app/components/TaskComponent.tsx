@@ -1,6 +1,10 @@
 import { columns } from "./tasks/Columns";
 import TaskTable from "./tasks/TaskTable";
 import { Task } from "../models/tasks/Task";
+import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "./ui/dialog";
+import { useState } from "react";
+import TaskView from "./tasks/TaskView";
+import { ScrollArea } from "./ui/scroll-area";
 const data: Task[] = [
   {
     id: "676eeddaf5264633ed8421ba",
@@ -145,11 +149,30 @@ const data: Task[] = [
 ];
 
 const TaskComponent = () => {
+  const [open, setOpen] = useState(false);
+  const [task, setTask] = useState<Task | null>(null);
+
+  const handleDialogOpen = (task: Task): void => {
+    console.log("Dialog opened for ", task.taskId);
+    setTask(task);
+    setOpen(!open);
+  };
+
   return (
     <>
       <div className="container mx-auto py-10">
-        <TaskTable columns={columns} data={data} />
+        <TaskTable columns={columns} data={data} toggleModal={handleDialogOpen} />
       </div>
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogTrigger></DialogTrigger>
+        <DialogContent className="min-w-[300px] max-w-[90vw]">
+          <DialogDescription hidden />
+          <DialogTitle>Task Details</DialogTitle>
+          <ScrollArea className="max-h-[80vh]">
+            <TaskView task={task} />
+          </ScrollArea>
+        </DialogContent>
+      </Dialog>
     </>
   );
 };

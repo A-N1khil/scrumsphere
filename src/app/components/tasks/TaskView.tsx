@@ -9,7 +9,7 @@ import { Message } from "@/app/models/tasks/Message";
 import MarkdownMessage from "../MarkdownMessage";
 
 interface TaskViewProps {
-  task: Task;
+  task: Task | null;
 }
 
 const TaskView = ({ task }: TaskViewProps) => {
@@ -21,43 +21,43 @@ const TaskView = ({ task }: TaskViewProps) => {
     <>
       <Card>
         <CardHeader className="text-left">
-          <div className="grid grid-cols-5">
-            <div className="col-span-4">
+          <div className="grid grid-cols-3">
+            <div className="col-span-2">
               <Breadcrumb>
                 <BreadcrumbList>
-                  <BreadcrumbItem>{task.projectId}</BreadcrumbItem>
+                  <BreadcrumbItem>{task?.projectId}</BreadcrumbItem>
                   <BreadcrumbSeparator />
-                  <BreadcrumbItem>{task.taskId}</BreadcrumbItem>
+                  <BreadcrumbItem>{task?.taskId}</BreadcrumbItem>
                 </BreadcrumbList>
               </Breadcrumb>
               <div className="mt-2 p-4 flex flex-col items-start justify-between">
                 <h1 data-testid="user-welcome-text" className="text-2xl font-bold">
-                  {task.title}
+                  {task?.title}
                 </h1>
-                <p>{task.description}</p>
+                <p>{task?.description}</p>
                 <Separator className="mt-2 border-foreground border-1 max-w-lg" />
                 <div className="mt-1 grid grid-cols-2">
                   <div className="flex flex-col items-start col-span-1">
                     <div className="flex flex-row justify-center items-center">
                       Assigned to:
-                      <CircleUser size={18} className="mr-1 ml-2" /> {task.assignee}
+                      <CircleUser size={18} className="mr-1 ml-2" /> {task?.assignee}
                     </div>
                     <div className="flex flex-row justify-center items-center">
                       Reported by
-                      <UserPen size={18} className="mr-1 ml-2" /> {task.reporter}
+                      <UserPen size={18} className="mr-1 ml-2" /> {task?.reporter}
                     </div>
                   </div>
                   <div className="flex flex-col items-start col-span-1">
                     <div className="grid grid-cols-2 flex flex-row justify-start items-start">
                       <div className="col-span-1">Due</div>
                       <div className="col-span-1 ml-2 flex flex-row justify-center items-center">
-                        <CalendarPlus size={18} className="mr-1" /> {task.dueDate}
+                        <CalendarPlus size={18} className="mr-1" /> {task?.dueDate}
                       </div>
                     </div>
                     <div className="grid grid-cols-2 flex flex-row justify-start">
                       <div className="col-span-1">Last updated:</div>
                       <div className="col-span-1 ml-2 flex flex-row justify-start items-center">
-                        <CalendarArrowUp size={18} className="mr-1" /> {task.updatedDate}
+                        <CalendarArrowUp size={18} className="mr-1" /> {task?.updatedDate}
                       </div>
                     </div>
                   </div>
@@ -78,7 +78,7 @@ const TaskView = ({ task }: TaskViewProps) => {
         </CardHeader>
         <CardContent>
           <div className="text-left items-start">
-            <MarkdownEditor markdown={task.description} postMessage={getNewMessage} />
+            <MarkdownEditor markdown={task?.description || ""} postMessage={getNewMessage} />
           </div>
         </CardContent>
         <CardFooter className="flex flex-col justify-start items-start">
@@ -88,7 +88,7 @@ const TaskView = ({ task }: TaskViewProps) => {
           </h1>
           <div className="grid grid-cols-5">
             <div className="col-span-4">
-              {task.messages?.map((message: Message) => (
+              {task?.messages?.map((message: Message) => (
                 <Card className="mt-5 w-[500px]" key={message.id}>
                   <CardHeader>
                     <CardTitle className="flex flex-row justify-start items-center">

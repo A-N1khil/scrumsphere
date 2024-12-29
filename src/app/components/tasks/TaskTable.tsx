@@ -11,17 +11,21 @@ import { useState } from "react";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Plus } from "lucide-react";
+import { columnWithActions } from "./Columns";
+import { Task } from "@/app/models/tasks/Task";
 
 interface TaskTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
-  data: TData[];
+  data: Task[];
+  toggleModal: (task: Task) => void;
 }
 
-export function TaskTable<TData, TValue>({ columns, data }: TaskTableProps<TData, TValue>) {
+export function TaskTable<TData, TValue>({ columns, data, toggleModal }: TaskTableProps<TData, TValue>) {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const tableColumns = columnWithActions({ toggleModal });
   const table = useReactTable({
     data,
-    columns,
+    columns: tableColumns,
     getCoreRowModel: getCoreRowModel(),
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
@@ -63,11 +67,7 @@ export function TaskTable<TData, TValue>({ columns, data }: TaskTableProps<TData
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow
-                  onClick={() => console.log(row.id)}
-                  key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
-                >
+                <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
                   {row.getVisibleCells().map((cell) => (
                     <TableCell className="text-left" key={cell.id}>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
