@@ -45,5 +45,10 @@ export const columnWithActions = ({ toggleModal }: ColumnWithActionProps): Colum
   },
   { header: "Assignee", accessorKey: "assignee" },
   { header: "Reporter", accessorKey: "reporter" },
-  { header: "Open", cell: ({ row }) => <ExternalLink size={18} onClick={() => toggleModal(row.original)} /> },
+  {
+    header: "Open",
+    cell: ({ row }) => (
+      <ExternalLink data-testId={"modal-" + row.original.taskId} size={18} onClick={() => toggleModal(row.original)} />
+    ),
+  },
 ];

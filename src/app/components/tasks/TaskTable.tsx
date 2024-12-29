@@ -67,7 +67,7 @@ export function TaskTable<TData, TValue>({ columns, data, toggleModal }: TaskTab
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
+                <TableRow data-testId={row.original.taskId} key={row.id} data-state={row.getIsSelected() && "selected"}>
                   {row.getVisibleCells().map((cell) => (
                     <TableCell className="text-left" key={cell.id}>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}

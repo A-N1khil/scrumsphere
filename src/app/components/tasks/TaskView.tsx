@@ -66,7 +66,13 @@ const TaskView = ({ task }: TaskViewProps) => {
               </div>
             </div>
             <div className="col-span-1">
-              <Button size="default" type="button" variant="default" className="float-left mr-3">
+              <Button
+                data-testId="edit-task-button"
+                size="default"
+                type="button"
+                variant="default"
+                className="float-left mr-3"
+              >
                 Edit Task
               </Button>
               <Button size="default" type="button" variant="destructive" className="float-left mr-3">

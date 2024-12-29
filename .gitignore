@@ -68,3 +68,4 @@ Thumbs.db
 
 # Custom code coverage
 **/code-coverage/*
+.nyc_output/out.json
