@@ -5,6 +5,7 @@ import { CalendarArrowUp, CalendarPlus, CircleUser, UserPen } from "lucide-react
 import { Separator } from "../ui/separator";
 import MarkdownEditor from "../MarkdownEditor";
 import { useEffect, useState } from "react";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbSeparator } from "../ui/breadcrumb";
 
 interface TaskViewProps {
   task: Task;
@@ -21,12 +22,32 @@ const TaskView = ({ task }: TaskViewProps) => {
     <>
       <Card>
         <CardHeader className="text-left">
-          <div className="mt-2 p-4 flex flex-col items-start justify-between">
-            <h1 data-testid="user-welcome-text" className="text-2xl font-bold">
-              {task.title}
-            </h1>
-            <p>{task.description}</p>
+          <div className="grid grid-cols-5">
+            <div className="col-span-4">
+              <Breadcrumb>
+                <BreadcrumbList>
+                  <BreadcrumbItem>{task.projectId}</BreadcrumbItem>
+                  <BreadcrumbSeparator />
+                  <BreadcrumbItem>{task.taskId}</BreadcrumbItem>
+                </BreadcrumbList>
+              </Breadcrumb>
+              <div className="mt-2 p-4 flex flex-col items-start justify-between">
+                <h1 data-testid="user-welcome-text" className="text-2xl font-bold">
+                  {task.title}
+                </h1>
+                <p>{task.description}</p>
+              </div>
+            </div>
+            <div className="col-span-1">
+              <Button size="default" type="button" variant="default" className="float-left mr-3">
+                Edit Task
+              </Button>
+              <Button size="default" type="button" variant="destructive" className="float-left mr-3">
+                Delete Task
+              </Button>
+            </div>
           </div>
+          <div className="flex flex-row items-center justify-end"></div>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-4 gap-4">
@@ -66,14 +87,7 @@ const TaskView = ({ task }: TaskViewProps) => {
             </div>
           </div>
         </CardContent>
-        <CardFooter className="flex items-end justify-end">
-          <Button size="default" type="button" variant="default" className="float-left mr-3">
-            Edit Task
-          </Button>
-          <Button size="default" type="button" variant="destructive" className="float-left mr-3">
-            Delete Task
-          </Button>
-        </CardFooter>
+        <CardFooter className="flex items-end justify-end"></CardFooter>
       </Card>
     </>
   );
