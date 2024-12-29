@@ -9,6 +9,8 @@ import {
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
 import { useState } from "react";
 import { Input } from "../ui/input";
+import { Button } from "../ui/button";
+import { Plus } from "lucide-react";
 
 interface TaskTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -30,12 +32,17 @@ export function TaskTable<TData, TValue>({ columns, data }: TaskTableProps<TData
 
   return (
     <>
-      <div className="flex items-center py-4">
+      <div className="flex py-4">
+        <Button size="default" type="button" variant="default" className="float-left mr-3">
+          <Plus />
+          Create Task
+        </Button>
+
         <Input
           placeholder="Filter via assignee..."
           value={(table.getColumn("assignee")?.getFilterValue() as string) ?? ""}
           onChange={(e) => table.getColumn("assignee")?.setFilterValue(e.target.value)}
-          className="max-w-sm"
+          className="max-w-xs float-right"
         />
       </div>
       <div className="rounded-md border">
@@ -56,7 +63,11 @@ export function TaskTable<TData, TValue>({ columns, data }: TaskTableProps<TData
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
+                <TableRow
+                  onClick={() => console.log(row.id)}
+                  key={row.id}
+                  data-state={row.getIsSelected() && "selected"}
+                >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell className="text-left" key={cell.id}>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
