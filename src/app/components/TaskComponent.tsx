@@ -160,7 +160,7 @@ const TaskComponent = () => {
 
   return (
     <>
-      <div className="container mx-auto py-10">
+      <div className="container">
         <TaskTable columns={columns} data={data} toggleModal={handleDialogOpen} />
       </div>
       <Dialog open={open} onOpenChange={setOpen}>
