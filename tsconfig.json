@@ -19,7 +19,7 @@
     "rootDir": "./src",
     "strict": true,
     "skipLibCheck": true,
-    "types": ["node", "jest", "cypress"],
+    "types": ["node", "jest", "cypress", "@testing-library/jest-dom"],
   },
   "include": ["src/**/*", "jest.config.cjs", "src/**/*.test.ts", "src/**/*.test.tsx"],
 }

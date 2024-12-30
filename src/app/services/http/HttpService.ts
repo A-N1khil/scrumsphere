@@ -5,8 +5,8 @@ import { CustomAuthConfig } from "@/app/models/shared/Auth";
 class HttpService {
   async get(
     url: string,
-    params: unknown,
-    setAuth: boolean = true,
+    params: unknown = null,
+    setAuth: boolean = false,
     authConfig?: CustomAuthConfig
   ): Promise<ResponseHolder> {
     if (setAuth) {
