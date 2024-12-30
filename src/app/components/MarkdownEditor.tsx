@@ -1,5 +1,4 @@
-"use client";
-
+import { useRef } from "react";
 import {
   BoldItalicUnderlineToggles,
   CodeToggle,
@@ -18,7 +17,6 @@ import {
   toolbarPlugin,
 } from "@mdxeditor/editor";
 import "@mdxeditor/editor/style.css";
-import { useRef } from "react";
 import { Button } from "./ui/button";
 import { MessageSquareShare } from "lucide-react";
 

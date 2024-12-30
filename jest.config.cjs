@@ -11,6 +11,13 @@ module.exports = {
   setupFilesAfterEnv: ['./src/setupTests.ts'],
   coverageDirectory: 'code-coverage/jest-coverage',
   moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/src/$1'
+    '^@/(.*)$': '<rootDir>/src/$1',
+    '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
+  },
+  transformIgnorePatterns: [
+    "/node_modules/(?!@mdxeditor/editor).+\\.js$",
+  ],
+  transform: {
+    '^.+\\.(ts|tsx)$': 'ts-jest',
   },
 };
