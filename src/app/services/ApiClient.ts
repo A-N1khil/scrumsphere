@@ -2,7 +2,7 @@ import axios, { AxiosInstance } from "axios";
 import { CustomAuthConfig } from "../models/shared/Auth";
 
 const apiClient: AxiosInstance = axios.create({
-  baseURL: "/api",
+  baseURL: "/scrumsphere-server",
   headers: {
     "Content-Type": "application/json",
   },

@@ -14,6 +14,8 @@ import { Plus } from "lucide-react";
 import { columnWithActions } from "./Columns";
 import { Task } from "@/app/models/tasks/Task";
 import { Combobox, ComboboxOption } from "../ui/combobox";
+import { Dialog, DialogTrigger, DialogContent } from "../ui/dialog";
+import NewTaskForm from "./NewTaskForm";
 
 interface TaskTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -71,10 +73,17 @@ export function TaskTable<TData, TValue>({ columns, data, toggleModal }: TaskTab
             />
           </div>
         </div>
-        <Button size="default" type="button" variant="default" className="float-left mr-3">
-          <Plus />
-          Create Task
-        </Button>
+        <Dialog>
+          <DialogTrigger>
+            <Button size="default" type="button" variant="default" className="float-left mr-3">
+              <Plus />
+              Create Task
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="min-w-[300px] max-w-[60vw]">
+            <NewTaskForm />
+          </DialogContent>
+        </Dialog>
       </div>
       <div className="rounded-md border">
         <Table>
