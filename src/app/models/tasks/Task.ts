@@ -1,9 +1,9 @@
-import { Message } from "./Message";
+import { TableEntity } from "@/app/models/shared/TableEntity";
+import { Message } from "@/app/models/tasks/Message";
 
 type Status = "TODO" | "IN_PROGRESS" | "DONE";
 
-export interface Task {
-  id?: string;
+export interface Task extends TableEntity {
   taskId: string;
   projectId?: string;
   title: string;

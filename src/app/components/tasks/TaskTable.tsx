@@ -1,44 +1,19 @@
-import {
-  ColumnDef,
-  ColumnFiltersState,
-  flexRender,
-  getCoreRowModel,
-  getFilteredRowModel,
-  useReactTable,
-} from "@tanstack/react-table";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
+import { ColumnDef } from "@tanstack/react-table";
 import { useState } from "react";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
-import { Plus } from "lucide-react";
-import { columnWithActions } from "./Columns";
-import { Task } from "@/app/models/tasks/Task";
-import { Combobox, ComboboxOption } from "../ui/combobox";
-import { Dialog, DialogTrigger, DialogContent } from "../ui/dialog";
+import { ComboboxOption } from "../ui/combobox";
+import { Dialog, DialogContent } from "../ui/dialog";
 import NewTaskForm from "./NewTaskForm";
+import { DataTable } from "../data-table/DataTable";
+import { TableEntity } from "@/app/models/shared/TableEntity";
+import { DataTableOptions } from "../data-table/DataTableOptions";
 
-interface TaskTableProps<TData, TValue> {
+interface TaskTableProps<TData extends TableEntity, TValue> {
   columns: ColumnDef<TData, TValue>[];
-  data: Task[];
-  toggleModal: (task: Task) => void;
+  data: TData[];
 }
 
-export function TaskTable<TData, TValue>({ columns, data, toggleModal }: TaskTableProps<TData, TValue>) {
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const tableColumns = columnWithActions({ toggleModal });
-
-  const table = useReactTable({
-    data,
-    columns: tableColumns,
-    getCoreRowModel: getCoreRowModel(),
-    onColumnFiltersChange: setColumnFilters,
-    getFilteredRowModel: getFilteredRowModel(),
-    state: {
-      columnFilters,
-    },
-  });
-
-  const comboOptions: ComboboxOption[] = [
+export function TaskTable<TData extends TableEntity, TValue>({ columns, data }: TaskTableProps<TData, TValue>) {
+  const comboBoxOptions: ComboboxOption[] = [
     { value: "taskId", label: "Task ID" },
     { value: "projectId", label: "Project ID" },
     { value: "title", label: "Title" },
@@ -47,80 +22,27 @@ export function TaskTable<TData, TValue>({ columns, data, toggleModal }: TaskTab
     { value: "reporter", label: "Reporter" },
   ];
 
-  const [filterKey, setFilterKey] = useState<string>(comboOptions[0].label);
-  const [filterValue, setFilterValue] = useState<string>(comboOptions[0].value);
+  const dataTableOptions: DataTableOptions<TData, TValue> = {
+    columns,
+    data,
+    comboBoxOptions,
+    tableFor: "Task",
+  };
 
-  const handleOptionChange = (option: ComboboxOption) => {
-    setFilterKey(option.label);
-    setFilterValue(option.value);
+  const [newTaskDialogOpen, setNewTaskDialogOpen] = useState<boolean>(false);
+
+  const openCreateDialog = () => {
+    setNewTaskDialogOpen(true);
   };
 
   return (
     <>
-      <div className="flex py-4 justify-between">
-        <div className="flex items-center min-w-lg">
-          <Input
-            placeholder={"Filter via " + (filterKey ?? "field") + "..."}
-            value={(table.getColumn(filterValue ?? "taskId")?.getFilterValue() as string) ?? ""}
-            onChange={(e) => table.getColumn(filterValue ?? "taskId")?.setFilterValue(e.target.value)}
-            className="max-w-xs float-right"
-          />
-          <div className="ml-2">
-            <Combobox
-              options={comboOptions}
-              placeholder="Filter via field..."
-              handleOptionChange={handleOptionChange}
-            />
-          </div>
-        </div>
-        <Dialog>
-          <DialogTrigger>
-            <Button size="default" type="button" variant="default" className="float-left mr-3">
-              <Plus />
-              Create Task
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="min-w-[300px] max-w-[60vw]">
-            <NewTaskForm />
-          </DialogContent>
-        </Dialog>
-      </div>
-      <div className="rounded-md border">
-        <Table>
-          <TableHeader>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
-                  return (
-                    <TableHead key={header.id}>
-                      {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
-                    </TableHead>
-                  );
-                })}
-              </TableRow>
-            ))}
-          </TableHeader>
-          <TableBody>
-            {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow data-testid={row.original.taskId} key={row.id} data-state={row.getIsSelected() && "selected"}>
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell className="text-left" key={cell.id}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell colSpan={columns.length} className="h-24 text-center">
-                  No results.
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </div>
+      <DataTable dataTableOptions={dataTableOptions} handleCreateDialog={openCreateDialog} />
+      <Dialog open={newTaskDialogOpen} onOpenChange={setNewTaskDialogOpen}>
+        <DialogContent className="min-w-[300px] max-w-[60vw]">
+          <NewTaskForm />
+        </DialogContent>
+      </Dialog>
     </>
   );
 }

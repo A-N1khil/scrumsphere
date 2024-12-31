@@ -1,10 +1,10 @@
-import { columns } from "./tasks/Columns";
 import TaskTable from "./tasks/TaskTable";
 import { Task } from "../models/tasks/Task";
 import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "./ui/dialog";
 import { useState } from "react";
 import TaskView from "./tasks/TaskView";
 import { ScrollArea } from "./ui/scroll-area";
+import { columnWithActions } from "./tasks/TaskTableColumns";
 const data: Task[] = [
   {
     id: "676eeddaf5264633ed8421ba",
@@ -158,10 +158,12 @@ const TaskComponent = () => {
     setOpen(!open);
   };
 
+  const columns = columnWithActions({ toggleModal: handleDialogOpen });
+
   return (
     <>
       <div className="container">
-        <TaskTable columns={columns} data={data} toggleModal={handleDialogOpen} />
+        <TaskTable columns={columns} data={data} />
       </div>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger></DialogTrigger>
