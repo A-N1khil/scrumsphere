@@ -2,7 +2,7 @@ import React from "react";
 import AppLayout from "../components/Layout";
 import { useAppSelector } from "../hooks/Hooks";
 import { UserState } from "../slices/UserSlice";
-import TaskComponent from "../components/TaskComponent";
+import { Outlet } from "react-router-dom";
 
 const UserLanding: React.FC = () => {
   const user = useAppSelector((state: { user: UserState }) => state.user.user);
@@ -18,7 +18,7 @@ const UserLanding: React.FC = () => {
         </div>
         <div className="pl-4 flex flex-col items-start justify-between">
           <h2 className="text-xl font-semibold mb-2">Recent Activity</h2>
-          <TaskComponent />
+          <Outlet />
         </div>
       </div>
     </AppLayout>

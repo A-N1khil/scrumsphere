@@ -8,6 +8,7 @@ import { store } from "./app/store";
 import { ThemeProvider } from "./app/components/ThemeProvider";
 import TaskView from "./app/components/tasks/TaskView";
 import { Task } from "./app/models/tasks/Task";
+import TaskComponent from "./app/components/TaskComponent";
 
 const task: Task = {
   id: "676eeddaf5264633ed8421ba",
@@ -46,7 +47,11 @@ function App() {
             <Routes>
               <Route path="/login" element={<LoginPage />} />
               <Route path="/register" element={<RegistrationPage />} />
-              <Route path="/tasks" element={<UserLanding />} />
+              <Route path="/home/*" element={<UserLanding />}>
+                <Route index element={<TaskComponent />} />
+                <Route index path="tasks" element={<TaskComponent />} />
+                {/* <Route path="/projects" element={<>} /> */}
+              </Route>
               <Route path="/task" element={<TaskView task={task} />} />
             </Routes>
           </BrowserRouter>
