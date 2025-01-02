@@ -7,6 +7,7 @@ import { ProjectTable } from "./ProjectTable";
 
 const data: Project[] = [
   {
+    id: "67760b4f457ce4cc88abf063",
     projectId: "PROJ-101",
     epicId: "EPIC-101",
     projectName: "Smart City Solutions",
@@ -14,6 +15,7 @@ const data: Project[] = [
     status: "ONGOING",
   },
   {
+    id: "67760b4f457ce4cc88abf064",
     projectId: "PROJ-102",
     epicId: "EPIC-101",
     projectName: "Urban Traffic Monitoring",
@@ -21,20 +23,23 @@ const data: Project[] = [
     status: "PLANNED",
   },
   {
+    id: "67760b4f457ce4cc88abf065",
     projectId: "PROJ-103",
     epicId: "EPIC-102",
     projectName: "Healthcare Management System",
     projectDescription: "A system to manage patient records, appointments, and medical billing.",
-    status: "DONE",
+    status: "ONGOING",
   },
   {
+    id: "67760b4f457ce4cc88abf066",
     projectId: "PROJ-104",
     epicId: "EPIC-102",
     projectName: "Telemedicine Platform",
     projectDescription: "Building a platform to enable remote healthcare consultations.",
-    status: "PLANNED",
+    status: "DONE",
   },
   {
+    id: "67760b4f457ce4cc88abf067",
     projectId: "PROJ-105",
     epicId: "EPIC-103",
     projectName: "AI Chatbot Integration",
@@ -42,6 +47,7 @@ const data: Project[] = [
     status: "ONGOING",
   },
   {
+    id: "67760b4f457ce4cc88abf068",
     projectId: "PROJ-106",
     epicId: "EPIC-103",
     projectName: "Voice Assistant for E-Commerce",
@@ -49,6 +55,7 @@ const data: Project[] = [
     status: "ICE_BOX",
   },
   {
+    id: "67760b4f457ce4cc88abf069",
     projectId: "PROJ-107",
     epicId: "EPIC-104",
     projectName: "Blockchain for Supply Chain",
@@ -56,6 +63,7 @@ const data: Project[] = [
     status: "ONGOING",
   },
   {
+    id: "67760b4f457ce4cc88abf06a",
     projectId: "PROJ-108",
     epicId: "EPIC-104",
     projectName: "Smart Inventory Management",
@@ -63,6 +71,7 @@ const data: Project[] = [
     status: "PLANNED",
   },
   {
+    id: "67760b4f457ce4cc88abf06b",
     projectId: "PROJ-109",
     epicId: "EPIC-105",
     projectName: "Social Media Analytics Tool",
@@ -70,6 +79,7 @@ const data: Project[] = [
     status: "PLANNED",
   },
   {
+    id: "67760b4f457ce4cc88abf06c",
     projectId: "PROJ-110",
     epicId: "EPIC-106",
     projectName: "Renewable Energy Dashboard",

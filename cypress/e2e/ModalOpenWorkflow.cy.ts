@@ -1,6 +1,6 @@
 describe("Modal open workflow", () => {
   beforeEach(() => {
-    cy.visit("/tasks");
+    cy.visit("/home/tasks");
   });
   it("should have tasks list populated", () => {
     cy.get('[data-testid="676eeddaf5264633ed8421ba"]').should("exist");
