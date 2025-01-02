@@ -6,8 +6,6 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/app/components/ui/table";
-import { Button } from "@/app/components/ui/button";
-import { Plus } from "lucide-react";
 import { Combobox, ComboboxOption } from "@/app/components/ui/combobox";
 import { Input } from "@/app/components/ui/input";
 import { useState } from "react";
@@ -16,13 +14,9 @@ import { TableEntity } from "@/app/models/shared/TableEntity";
 
 export type DataTableProps<TData extends TableEntity, TValue> = {
   dataTableOptions: DataTableOptions<TData, TValue>;
-  handleCreateDialog: () => void;
 };
 
-export function DataTable<TData extends TableEntity, TValue>({
-  dataTableOptions,
-  handleCreateDialog,
-}: DataTableProps<TData, TValue>) {
+export function DataTable<TData extends TableEntity, TValue>({ dataTableOptions }: DataTableProps<TData, TValue>) {
   const { columns, data, comboBoxOptions } = dataTableOptions;
   const [filterKey, setFilterKey] = useState<string>(comboBoxOptions[0].label);
   const [filterValue, setFilterValue] = useState<string>(comboBoxOptions[0].value);
@@ -30,10 +24,6 @@ export function DataTable<TData extends TableEntity, TValue>({
   const handleOptionChange = (option: ComboboxOption) => {
     setFilterKey(option.label);
     setFilterValue(option.value);
-  };
-
-  const handleOpenCreateDialog = () => {
-    handleCreateDialog();
   };
 
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -67,16 +57,6 @@ export function DataTable<TData extends TableEntity, TValue>({
             />
           </div>
         </div>
-        <Button
-          size="default"
-          type="button"
-          variant="default"
-          className="float-left mr-3"
-          onClick={handleOpenCreateDialog}
-        >
-          <Plus />
-          Create Task
-        </Button>
       </div>
       <div className="rounded-md border">
         <Table>

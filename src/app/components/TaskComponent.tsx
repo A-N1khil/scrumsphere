@@ -5,6 +5,10 @@ import { useState } from "react";
 import TaskView from "./tasks/TaskView";
 import { ScrollArea } from "./ui/scroll-area";
 import { columnWithActions } from "./tasks/TaskTableColumns";
+import { Button } from "./ui/button";
+import { Plus } from "lucide-react";
+import { NewTaskForm } from "@/app/components/tasks/NewTaskForm";
+
 const data: Task[] = [
   {
     id: "676eeddaf5264633ed8421ba",
@@ -159,10 +163,15 @@ const TaskComponent = () => {
   };
 
   const columns = columnWithActions({ toggleModal: handleDialogOpen });
+  const [newTaskDialogOpen, setNewTaskDialogOpen] = useState(false);
 
   return (
     <>
       <div className="container">
+        <Button size="default" type="button" variant="default" className="float-right mt-5">
+          <Plus />
+          Create Task
+        </Button>
         <TaskTable columns={columns} data={data} />
       </div>
       <Dialog open={open} onOpenChange={setOpen}>
@@ -173,6 +182,11 @@ const TaskComponent = () => {
           <ScrollArea className="max-h-[80vh]">
             <TaskView task={task} />
           </ScrollArea>
+        </DialogContent>
+      </Dialog>
+      <Dialog open={newTaskDialogOpen} onOpenChange={setNewTaskDialogOpen}>
+        <DialogContent className="min-w-[300px] max-w-[60vw]">
+          <NewTaskForm />
         </DialogContent>
       </Dialog>
     </>

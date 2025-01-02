@@ -1,8 +1,5 @@
 import { ColumnDef } from "@tanstack/react-table";
-import { useState } from "react";
 import { ComboboxOption } from "../ui/combobox";
-import { Dialog, DialogContent } from "../ui/dialog";
-import NewTaskForm from "./NewTaskForm";
 import { DataTable } from "../data-table/DataTable";
 import { TableEntity } from "@/app/models/shared/TableEntity";
 import { DataTableOptions } from "../data-table/DataTableOptions";
@@ -29,20 +26,9 @@ export function TaskTable<TData extends TableEntity, TValue>({ columns, data }: 
     tableFor: "Task",
   };
 
-  const [newTaskDialogOpen, setNewTaskDialogOpen] = useState<boolean>(false);
-
-  const openCreateDialog = () => {
-    setNewTaskDialogOpen(true);
-  };
-
   return (
     <>
-      <DataTable dataTableOptions={dataTableOptions} handleCreateDialog={openCreateDialog} />
-      <Dialog open={newTaskDialogOpen} onOpenChange={setNewTaskDialogOpen}>
-        <DialogContent className="min-w-[300px] max-w-[60vw]">
-          <NewTaskForm />
-        </DialogContent>
-      </Dialog>
+      <DataTable dataTableOptions={dataTableOptions} />
     </>
   );
 }
