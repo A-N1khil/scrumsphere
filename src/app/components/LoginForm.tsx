@@ -18,7 +18,7 @@ import { useDispatch } from "react-redux";
 import { setUser } from "../slices/UserSlice";
 
 // Login Schema
-const loginSchema = z.object({
+export const loginSchema = z.object({
   userId: z.string(),
   password: z.string(),
 });
