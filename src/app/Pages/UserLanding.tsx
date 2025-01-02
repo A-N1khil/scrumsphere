@@ -17,7 +17,6 @@ const UserLanding: React.FC = () => {
           <p>This is the main content area of the User Landing page.</p>
         </div>
         <div className="pl-4 flex flex-col items-start justify-between">
-          <h2 className="text-xl font-semibold mb-2">Recent Activity</h2>
           <Outlet />
         </div>
       </div>

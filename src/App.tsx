@@ -9,6 +9,7 @@ import { ThemeProvider } from "./app/components/ThemeProvider";
 import TaskView from "./app/components/tasks/TaskView";
 import { Task } from "./app/models/tasks/Task";
 import TaskComponent from "./app/components/TaskComponent";
+import { ProjectComponent } from "./app/components/projects/ProjectComponent";
 
 const task: Task = {
   id: "676eeddaf5264633ed8421ba",
@@ -50,7 +51,7 @@ function App() {
               <Route path="/home/*" element={<UserLanding />}>
                 <Route index element={<TaskComponent />} />
                 <Route index path="tasks" element={<TaskComponent />} />
-                {/* <Route path="/projects" element={<>} /> */}
+                <Route path="projects" element={<ProjectComponent />} />
               </Route>
               <Route path="/task" element={<TaskView task={task} />} />
             </Routes>
