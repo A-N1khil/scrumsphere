@@ -8,18 +8,16 @@ export function MainNav() {
   const { user } = useAppSelector((state) => state.user);
   const role = user?.role || "developer";
   const navLinks = [
-    { name: "Tasks", path: "/tasks", hideForRoles: [] },
-    { name: "Projects", path: "/projects", hideForRoles: [] },
-    { name: "Team", path: "/team", hideForRoles: ["developer"] },
+    { name: "Tasks", path: "/home/tasks", hideForRoles: [] },
+    { name: "Projects", path: "/home/projects", hideForRoles: [] },
+    { name: "Team", path: "/home/team", hideForRoles: ["developer"] },
   ];
 
   return (
     <div className="mr-4 hidden md:flex">
       <Link to="/" className="mr-4 flex items-center gap-2 lg:mr-6">
         <SquareKanban className="size-6" />
-        <span className="hidden font-bold lg:inline-block">
-          {Constants.APP_NAME}
-        </span>
+        <span className="hidden font-bold lg:inline-block">{Constants.APP_NAME}</span>
       </Link>
       <nav className="flex items-center gap-4 text-sm xl:gap-6">
         <div className="flex gap-6">

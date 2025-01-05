@@ -1,7 +1,6 @@
-import { ColumnDef } from "@tanstack/react-table";
-import { ComboboxOption } from "../ui/combobox";
-import { DataTable } from "../data-table/DataTable";
 import { TableEntity } from "@/app/models/shared/TableEntity";
+import { ColumnDef } from "@tanstack/react-table";
+import { DataTable } from "../data-table/DataTable";
 import { DataTableOptions } from "../data-table/DataTableOptions";
 
 interface TaskTableProps<TData extends TableEntity, TValue> {
@@ -9,14 +8,11 @@ interface TaskTableProps<TData extends TableEntity, TValue> {
   data: TData[];
 }
 
-export function TaskTable<TData extends TableEntity, TValue>({ columns, data }: TaskTableProps<TData, TValue>) {
-  const comboBoxOptions: ComboboxOption[] = [
-    { value: "taskId", label: "Task ID" },
+export function ProjectTable<TData extends TableEntity, TValue>({ columns, data }: TaskTableProps<TData, TValue>) {
+  const comboBoxOptions = [
     { value: "projectId", label: "Project ID" },
-    { value: "title", label: "Title" },
-    { value: "status", label: "Status" },
-    { value: "assignee", label: "Assignee" },
-    { value: "reporter", label: "Reporter" },
+    { value: "epicId", label: "Epic ID" },
+    { value: "projectName", label: "Project Name" },
   ];
 
   const dataTableOptions: DataTableOptions<TData, TValue> = {
@@ -32,5 +28,3 @@ export function TaskTable<TData extends TableEntity, TValue>({ columns, data }: 
     </>
   );
 }
-
-export default TaskTable;

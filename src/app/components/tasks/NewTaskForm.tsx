@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 
-const NewTaskForm = () => {
+export function NewTaskForm() {
   // Login Schema
   const loginSchema = z.object({
     userId: z.string(),
@@ -75,6 +75,4 @@ const NewTaskForm = () => {
       </form>
     </Form>
   );
-};
-
-export default NewTaskForm;
+}

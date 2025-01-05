@@ -62,6 +62,9 @@ export default {
   			},
 			success: {
 				DEFAULT: 'hsl(var(--success))',
+			},
+			middle: {
+				DEFAULT: 'hsl(var(--middle))',
 			}
   		}
   	}
