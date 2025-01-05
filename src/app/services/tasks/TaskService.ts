@@ -25,6 +25,15 @@ class TaskService {
       return response.data as Task;
     });
   }
+
+  async getNextTaskId(): Promise<string> {
+    return new Promise((resolve) => {
+      resolve("5");
+    });
+    // return await httpService.get("/tasks/nextId").then((response) => {
+    //   return response.data as string;
+    // });
+  }
 }
 
 export const taskService = new TaskService();

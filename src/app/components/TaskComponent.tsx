@@ -1,6 +1,6 @@
 import TaskTable from "./tasks/TaskTable";
 import { Task } from "../models/tasks/Task";
-import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "./ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
 import { useState } from "react";
 import TaskView from "./tasks/TaskView";
 import { ScrollArea } from "./ui/scroll-area";
@@ -157,18 +157,23 @@ const TaskComponent = () => {
   const [task, setTask] = useState<Task | null>(null);
 
   const handleDialogOpen = (task: Task): void => {
-    console.log("Dialog opened for ", task.taskId);
     setTask(task);
     setOpen(!open);
   };
 
   const columns = columnWithActions({ toggleModal: handleDialogOpen });
-  const [newTaskDialogOpen, setNewTaskDialogOpen] = useState(false);
+  const [newTaskDialogOpen, setNewTaskDialogOpen] = useState(true);
 
   return (
     <>
       <div className="container">
-        <Button size="default" type="button" variant="default" className="float-right mt-5">
+        <Button
+          size="default"
+          type="button"
+          variant="default"
+          className="float-right mt-5"
+          onClick={() => setNewTaskDialogOpen(true)}
+        >
           <Plus />
           Create Task
         </Button>
@@ -186,6 +191,10 @@ const TaskComponent = () => {
       </Dialog>
       <Dialog open={newTaskDialogOpen} onOpenChange={setNewTaskDialogOpen}>
         <DialogContent className="min-w-[300px] max-w-[60vw]">
+          <DialogHeader>
+            <DialogTitle>Create New Task</DialogTitle>
+            <DialogDescription>Wow!! More work!!</DialogDescription>
+          </DialogHeader>
           <NewTaskForm />
         </DialogContent>
       </Dialog>
