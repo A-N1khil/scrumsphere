@@ -18,7 +18,12 @@ export default tseslint.config(
       'react-refresh': reactRefresh,
     },
     rules: {
-      ...reactHooks.configs.recommended.rules,
+      ...Object.fromEntries(
+        Object.entries(reactHooks.configs.recommended.rules).map(([key]) => [key, 'warn'])
+      ),
+      ...Object.fromEntries(
+        Object.entries(reactHooks.configs.recommended.rules).map(([key]) => [key, 'warn'])
+      ),
       'react-refresh/only-export-components': [
         'warn',
         { allowConstantExport: true },

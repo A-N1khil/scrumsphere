@@ -2,7 +2,8 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { User } from "../models/users/User";
 
 const demoUser: User = {
-  name: "Nikhil",
+  userId: "Alice",
+  name: "Alice",
   email: "johndoe@example.com",
   role: "developer",
 };
