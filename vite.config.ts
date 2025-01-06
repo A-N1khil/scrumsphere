@@ -35,7 +35,7 @@ export default defineConfig(({ mode }) => {
         "/scrumsphere-server": {
           target: env.VITE_BASE_URL,
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, ""),
+          rewrite: (path) => path.replace(/^\/scrumsphere-server/, ""),
         },
       },
     },
